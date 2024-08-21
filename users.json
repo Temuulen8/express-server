@@ -1,0 +1,20 @@
+{
+  "employees": [
+    {
+      "eid": "1",
+      "firstname": "Naraa",
+      "lastname": "Davaa",
+      "email": "naraa@gmail.com",
+      "position": "Developer",
+      "profileImg": "https://img.daisyui.com/images/profile/demo/2@94.webp"
+    },
+    {
+      "eid": "1",
+      "firstname": "Saraa",
+      "lastname": "Davaa",
+      "email": "naraa@gmail.com",
+      "position": "Developer",
+      "profileImg": "https://img.daisyui.com/images/profile/demo/2@94.webp"
+    }
+  ]
+}
