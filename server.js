@@ -5,8 +5,8 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.get("/users", (req, res) => {
   const data = fs.readFileSync("./users.json", { encoding: "utf8" });
@@ -19,14 +19,13 @@ app.post("/users", (req, res) => {
   console.log("BODY", req.body);
 
   const data = fs.readFileSync("./users.json", { encoding: "utf8" });
-  const { users } = JSON.parse(data);
+  const { employees } = JSON.parse(data);
   const newUser = {
-    id: `${users.length + 1}`,
-    name: req.body.name,
-    age: req.body.age,
+    eid: employees.length + 1,
+    ...req.body,
   };
-  users.push(newUser);
-  fs.writeFileSync("./users.json", JSON.stringify({ users }));
+  employees.push(newUser);
+  fs.writeFileSync("./users.json", JSON.stringify({ employees }));
   res.status(201).json({ name: newUser });
 });
 
@@ -47,12 +46,15 @@ app.put("/users/:userId", (req, res) => {
 
 app.delete("/users/:id", (req, res) => {
   const data = fs.readFileSync("./users.json", { encoding: "utf8" });
-  const { users } = JSON.parse(data);
-  const findIndex = users.findIndex((users) => users.id === req.params.id);
+  const { employees } = JSON.parse(data);
+  const findIndex = employees.findIndex(
+    (employee) => employee.eid === parseInt(req.params.id)
+  );
+
   if (findIndex > -1) {
-    const deletUser = users.splice(findIndex, 1);
-    fs.writeFileSync("./users.json", JSON.stringify({ users }));
-    res.status(200).json({ user: deletUser[0] });
+    const deletUser = employees.splice(findIndex, 1);
+    fs.writeFileSync("./users.json", JSON.stringify({ employees }));
+    res.status(200).json({ employees: deletUser[0] });
   } else {
     res.status(400).json({ messege: "Not found user ID" });
   }
