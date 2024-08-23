@@ -50,7 +50,6 @@ app.delete("/users/:id", (req, res) => {
   const findIndex = employees.findIndex(
     (employee) => employee.eid === parseInt(req.params.id)
   );
-
   if (findIndex > -1) {
     const deletUser = employees.splice(findIndex, 1);
     fs.writeFileSync("./users.json", JSON.stringify({ employees }));
